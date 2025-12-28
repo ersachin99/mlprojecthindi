@@ -8,7 +8,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 # name of project
-project_name='mlprojects'
+project_name='projects'
 
 # files
 
