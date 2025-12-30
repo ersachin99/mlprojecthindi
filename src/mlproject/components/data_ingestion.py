@@ -56,9 +56,9 @@ class DataIngestion:
 
             # same as above saving the train and test data as per csv file/same path as per above train,test path
             # for train data path
-            df.to_csv(self.ingestion_config.train_data_path,index=False,header=True)
+            train_set.to_csv(self.ingestion_config.train_data_path,index=False,header=True)
             # for test data path 
-            df.to_csv(self.ingestion_config.test_data_path,index=False,header=True)
+            test_set.to_csv(self.ingestion_config.test_data_path,index=False,header=True)
 
             #create some logging info
             logging.info('Data Ingestion is Completed')
