@@ -27,7 +27,7 @@ from dataclasses import dataclass
 class DataIngestionConfig:
     train_data_path: str =os. path.join('artifacts','train.csv')
     test_data_path: str =os. path.join('artifacts','test.csv')
-    raw_data_path: str =os. path.join('artifacts','data.csv')  ## row getting all the data
+    raw_data_path: str =os. path.join('artifacts','raw.csv')  ## row getting all the data
 
 
 
@@ -41,7 +41,7 @@ class DataIngestion:
         try:
             # reading code here
 
-            df=read_sql_data()
+            df=pd.read_csv(os.path.join('notebook/data','raw.csv'))
 
             logging.info('Reading completed from mysql database')
             # after saving the data in dataframe we have to save it in artifacts folder

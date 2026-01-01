@@ -1,11 +1,16 @@
 
 from json import load
+from math import e
 import os
 import sys
 from src.mlproject.exception import CustomException
 from src.mlproject.logger import logging
 import pandas as pd
 
+
+# this libraieis for data transformaton for model pickle file
+import pickle
+import numpy as np
 
 
 import pymysql
@@ -52,5 +57,21 @@ def read_sql_data():
 
 
 
+
+# function create for saving the object as pickle file
+# this function is used for data transormation and model file
+
+def save_object(file_path, obj):
+    try:
+        dir_path = os.path.dirname(file_path)
+
+        os.makedirs(dir_path, exist_ok=True)
+
+
+        with open(file_path,'wb') as file_obj:
+            pickle.dump(obj,file_obj)
+
+    except Exception as e:
+        raise CustomException(e,sys)
 
 
