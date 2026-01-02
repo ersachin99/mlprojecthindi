@@ -3,6 +3,9 @@ from json import load
 from math import e
 import os
 import sys
+
+from sklearn.metrics import r2_score
+from sklearn.model_selection import GridSearchCV
 from src.mlproject.exception import CustomException
 from src.mlproject.logger import logging
 import pandas as pd
@@ -75,3 +78,40 @@ def save_object(file_path, obj):
         raise CustomException(e,sys)
 
 
+
+# create a evaluation model for model transer class or file 
+
+def evaluate_model(x_train,y_train,x_test,y_test, models, param):
+    try:
+
+        report={}
+
+
+        for i in range(len(list(models))):
+            model = list(models.values())[i]
+            para = param[list(models.keys())[i]]
+
+            gs= GridSearchCV(model, para,  cv=3)
+            gs.fit(x_train,y_train)
+
+
+            model.set_params(**gs.best_params_)
+            model.fit(x_train,y_train)
+
+            # model.fit(x_train,y_train)   # tain model
+
+            y_train_pred= model.predict(x_train)
+
+            y_test_pred=model.predict(x_test)
+
+            train_model_score= r2_score(y_train, y_train_pred)
+
+            train_model_score = r2_score(y_test, y_test_pred)
+
+            report[list(models.keys())[i]] = train_model_score
+
+        return report
+    
+
+    except Exception as e:
+        raise CustomException(e,sys)    

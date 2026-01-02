@@ -1,3 +1,4 @@
+from pyexpat import model
 from src.mlproject.logger import logging
 # both logging and exception module are imported here and run
 
@@ -14,9 +15,10 @@ from src.mlproject.components.data_transformation import DataTransformationconfi
 from src.mlproject.components.data_transformation import DataTransformation
 
 
-
-
-
+# for model training and model transer we will import later
+from src.mlproject.components.data_transformation import DataTransformationconfig
+from src.mlproject.components.model_transer import ModelTrainer, ModelTransferConfig
+from src.mlproject.components.model_transer import ModelTrainer
 
 
 
@@ -36,10 +38,12 @@ if __name__ == "__main__":
         # above code is commedte becuase under data transformation class we have already data)_transformation_config object
 
         data_transformation = DataTransformation()
-        data_transformation.initiate_data_transformation(train_data_path, test_data_path)
+        train_arr,test_arr,_ =data_transformation.initiate_data_transformation(train_data_path, test_data_path)
 
+        # for model trainer code here 
 
-
+        model_trainer = ModelTrainer()
+        print(model_trainer.initiate_model_trainer(train_arr, test_arr))
     
     except Exception as e:
         logging.info('custome exception has been raised')
